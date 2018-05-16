@@ -1,16 +1,17 @@
 package me.soulyana.bullhorn;
 
+import com.cloudinary.utils.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.io.IOException;
+import java.util.Map;
 
 @Controller
 public class MainController {
@@ -26,6 +27,9 @@ public class MainController {
 
     @Autowired
     CommentRepository comments;
+
+    @Autowired
+    CloudinaryConfig cloudc;
 
     @GetMapping("/")
     public String showIndex(Model model) {
@@ -54,6 +58,28 @@ public class MainController {
         long id = new Long (request.getParameter("id"));
         model.addAttribute("aPost", posts.findById(id).get());
         return "postform";
+    }
+
+    @GetMapping("/adduser")
+    public String newAppUser(Model model) {
+        model.addAttribute("appuser", new AppUser());
+        return "registration";
+    }
+
+    @PostMapping("/adduser")
+    public String processAppUser(@ModelAttribute AppUser appUser, @RequestParam("file")MultipartFile file) {
+        if(file.isEmpty()) {
+            return "redirect:/adduser";
+        }
+        try {
+            Map uploadResult = cloudc.upload(file.getBytes(), ObjectUtils.asMap("resourcetype", "auto"));
+         appUser.setDisplayImg(uploadResult.get("url").toString());
+         users.save(appUser);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return "redirect:/adduser";
+        }
+        return "redirect:/";
     }
 
 
