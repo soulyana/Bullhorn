@@ -2,6 +2,7 @@ package me.soulyana.bullhorn;
 
 import com.cloudinary.utils.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -45,25 +46,20 @@ public class MainController {
     }
 
     @PostMapping("/savepost")
-    public String savePost(@Valid @ModelAttribute("aPost") Post post, BindingResult result) {
+    public String savePost(@Valid @ModelAttribute("aPost") Post post, BindingResult result, Authentication auth) {
         if(result.hasErrors()) {
             return "index";
         }
+        AppUser appUser = users.findByUsername(auth.getName());
+        post.setAppUser(appUser);
         posts.save(post);
         return "redirect:/";
-    }
-
-    @RequestMapping("/editpost")
-    public String editPost(HttpServletRequest request, Model model) {
-        long id = new Long (request.getParameter("id"));
-        model.addAttribute("aPost", posts.findById(id).get());
-        return "postform";
     }
 
     @GetMapping("/adduser")
     public String newAppUser(Model model) {
         model.addAttribute("appuser", new AppUser());
-        return "registration";
+        return "register";
     }
 
     @PostMapping("/adduser")
@@ -82,5 +78,52 @@ public class MainController {
         return "redirect:/";
     }
 
+    @GetMapping("/register")
+    public String registerUser(Model model, Authentication auth) {
+        if(auth == null) {
+            model.addAttribute("user", new AppUser());
+            return "register";
+        } else {
+            return "redirect:/";
+        }
+    }
+
+    @PostMapping("/register")
+    public String processRegistration(@Valid @ModelAttribute("user") AppUser user, BindingResult result, Model model,
+                                      Authentication auth) {
+        if(auth == null) {
+            model.addAttribute("user", user);
+            if(result.hasErrors()) {
+                return "register";
+            } else {
+                users.save(user);
+            }
+            return "redirect:/";
+        } else {
+            return "redirect:/";
+        }
+
+
+    }
+
+    @RequestMapping("/login")
+    public String login() {
+        return "login";
+    }
+
+    @RequestMapping("/landing")
+    public String showLandingPage() {
+        return "landing";
+    }
+
+    @RequestMapping("/profile")
+    public String showProfilePage() {
+        return "profile";
+    }
+
+    @RequestMapping("/feed")
+    public String showFeed() {
+        return "feed";
+    }
 
 }

@@ -28,7 +28,7 @@ public class AppConfig extends WebSecurityConfigurerAdapter {
         return new SSUDS(users);
     }
 
-    private String[] everyone = {"/", "/signup", "/login"};
+    private String[] everyone = {"/", "/register", "/login", "/assets/**"};
     private String[] appUser = {"/posts", "/comments"};
 
     @Override

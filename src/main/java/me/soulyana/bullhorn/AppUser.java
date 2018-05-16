@@ -5,11 +5,12 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-public class AppUser {
+public class AppUser implements Serializable{
 
     @Transient
     PasswordEncoder encoder;
@@ -29,8 +30,10 @@ public class AppUser {
     @NotNull
     private String displayImg;
 
+    @Lob
     public Set<AppUser> followingUsers;
 
+    @Lob
     public Set<AppUser> followedByUsers;
 
     @OneToMany(mappedBy = "appUser")
