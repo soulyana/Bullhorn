@@ -36,7 +36,7 @@ public class MainController {
     public String showIndex(Model model) {
         model.addAttribute("aPost", new Post());
         model.addAttribute("postList", posts.findAll());
-        return "index";
+        return "feed";
     }
 
     @GetMapping("/addpost")

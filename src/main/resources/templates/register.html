@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" xmlns:th="www.thymeleaf.org" xmlns:sec="www.thymeleaf.org/extras/springsecurity4">
 <head>
 	<meta charset="utf-8" />
 	<link rel="icon" type="image/png" href="../assets/img/favicon.ico">
@@ -78,7 +78,7 @@
                     <div class="row">
                         <div class="col-lg-4 ml-auto mr-auto">
                             <div class="card card-register">
-                                <h3 class="title">Welcome</h3>
+                                <h3 class="title">Welcome to Bullhorn</h3>
 								<div class="social-line text-center">
                                     <a href="#pablo" class="btn btn-neutral btn-facebook btn-just-icon">
                                         <i class="fa fa-facebook-square"></i>
@@ -90,16 +90,27 @@
 										<i class="fa fa-twitter"></i>
 									</a>
                                 </div>
-                                <form class="register-form">
-                                    <label>Email</label>
-                                    <input type="text" class="form-control" placeholder="Email">
+                                <form class="register-form" th:action="@{/register}" th:object="${user}" method="post">
+                                    <input type="hidden" th:field="*{id}" />
+                                    <label>Username</label>
+                                    <input type="text" class="form-control" placeholder="Username" th:field="*{username}"/>
+                                    <span th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></span><br />
 
                                     <label>Password</label>
-                                    <input type="password" class="form-control" placeholder="Password">
-                                    <button class="btn btn-danger btn-block btn-round">Register</button>
+                                    <input type="password" class="form-control" placeholder="Password" th:field="*{password}"/>
+                                    <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span><br />
+
+                                    <label>Profile Name</label>
+                                    <input type="text" class="form-control" placeholder="Profile Name" th:field="*{displayName}"/>
+                                    <span th:if="${#fields.hasErrors('displayName')}" th:errors="*{displayName}"></span><br />
+
+                                    <label>Profile Picture</label>
+                                    <input type="text" class="form-control" placeholder="Profile Picture" th:field="*{displayImg}"/>
+                                    <span th:if="${#fields.hasErrors('displayImg')}" th:errors="*{displayImg}"></span><br />
+                                    <button type="submit" button class="btn btn-danger btn-block btn-round">Register</button>
                                 </form>
                                 <div class="forgot">
-                                    <a href="#" class="btn btn-link btn-danger">Forgot password?</a>
+                                    <a href="/login" class="btn btn-link btn-danger">Login</a>
                                 </div>
                             </div>
                         </div>
