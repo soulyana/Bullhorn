@@ -6,6 +6,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -27,14 +28,14 @@ public class AppUser implements Serializable{
     @NotNull
     private String displayName;
 
-    @NotNull
+    @Lob
     private String displayImg;
 
     @Lob
-    public Set<AppUser> followingUsers;
+    public ArrayList<AppUser> followingUsers;
 
     @Lob
-    public Set<AppUser> followedByUsers;
+    public ArrayList<AppUser> followedByUsers;
 
     @OneToMany(mappedBy = "appUser")
     public Set<Post> posts;
@@ -47,8 +48,8 @@ public class AppUser implements Serializable{
 
     public AppUser() {
         this.roles = new HashSet<>();
-        this.followingUsers = new HashSet<>();
-        this.followedByUsers = new HashSet<>();
+        this.followingUsers = new ArrayList<>();
+        this.followedByUsers = new ArrayList<>();
         this.posts = new HashSet<>();
         this.comments = new HashSet<>();
 
@@ -104,21 +105,6 @@ public class AppUser implements Serializable{
         this.displayImg = displayImg;
     }
 
-    public Set<AppUser> getFollowingUsers() {
-        return followingUsers;
-    }
-
-    public void setFollowingUsers(Set<AppUser> followingUsers) {
-        this.followingUsers = followingUsers;
-    }
-
-    public Set<AppUser> getFollowedByUsers() {
-        return followedByUsers;
-    }
-
-    public void setFollowedByUsers(Set<AppUser> followedByUsers) {
-        this.followedByUsers = followedByUsers;
-    }
 
     public Set<Post> getPosts() {
         return posts;
@@ -142,5 +128,21 @@ public class AppUser implements Serializable{
 
     public void setRoles(Set<AppRole> roles) {
         this.roles = roles;
+    }
+
+    public ArrayList<AppUser> getFollowingUsers() {
+        return followingUsers;
+    }
+
+    public void setFollowingUsers(ArrayList<AppUser> followingUsers) {
+        this.followingUsers = followingUsers;
+    }
+
+    public ArrayList<AppUser> getFollowedByUsers() {
+        return followedByUsers;
+    }
+
+    public void setFollowedByUsers(ArrayList<AppUser> followedByUsers) {
+        this.followedByUsers = followedByUsers;
     }
 }
