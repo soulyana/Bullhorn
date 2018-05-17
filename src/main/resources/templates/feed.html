@@ -184,16 +184,16 @@
                         <div class="row">
                             <div class="col-md-8">
                                 <div class="tweets">
-                                    <div class="media">
+                                    <div class="media" th:each="user : ${userList}">
                                         <a class="pull-left" href="#">
                                             <div class="avatar">
-                                                <img class="media-object" src="../assets/img/rihanna.jpg" alt="..." />
+                                                <img class="media-object" th:src="${user.displayImg}" alt="../assets/img/rihanna.jpg" />
                                             </div>
                                         </a>
-                                        <div class="media-body">
-                                            <strong>Rihanna</strong>
-                                            <h5 class="media-heading"><small>@rihanna &middot; 1h</small></h5>
-                                            <p>It's just beyond the vault. Discover room 7 of the <a href="javascript: void(0);" class="link-danger">#ANTIdiaRy</a> at <a href="" class="link-info">http://smarturl.it/AntidiaRyTW</a></p>
+                                        <div class="media-body" th:each="eachpost : ${postList}">
+                                            <strong th:text="${user.displayName}"></strong>
+                                            <h5 class="media-heading"><small th:text="${user.displayName}">@</small></h5>
+                                            <p th:text="${eachpost.message}"></p>
 
                                             <div class="media-footer">
                                                 <a href="#" class="btn btn-simple">
@@ -202,8 +202,8 @@
                                                 <a href="#" class="btn btn-success btn-simple">
                                                     <i class="fa fa-retweet"></i> 2.1k
                                                 </a>
-                                                <a href="#" class="btn btn-danger btn-simple">
-                                                    <i class="fa fa-heart"></i> 3.2k
+                                                <a th:href="@{/likepost/{id}" class="btn btn-danger btn-simple">
+                                                    <i class="fa fa-heart"></i><span th:inline="text">[[${#lists.size(eachpost.likedPost)}]]</span>
                                                 </a>
                                                 <div class="dropdown">
                                                     <button id="dLabel" type="button" class="btn btn-icon btn-simple btn-lg" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

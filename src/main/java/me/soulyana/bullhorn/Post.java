@@ -1,6 +1,7 @@
 package me.soulyana.bullhorn;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -17,6 +18,8 @@ public class Post {
 
     private Date postedAt;
 
+    private ArrayList<AppUser> likedPost;
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "appUser_id")
     private AppUser appUser;
@@ -24,8 +27,11 @@ public class Post {
     @OneToMany(mappedBy = "post")
     public Set<Comment> comments;
 
+
     public Post() {
+
         this.comments = new HashSet<>();
+        this.likedPost = new ArrayList<>();
     }
 
     public long getId() {
@@ -66,5 +72,19 @@ public class Post {
 
     public void setComments(Set<Comment> comments) {
         this.comments = comments;
+    }
+
+
+    public ArrayList<AppUser> getLikedPost() {
+        return likedPost;
+    }
+
+    public void setLikedPost(ArrayList<AppUser> likedPost) {
+        this.likedPost = likedPost;
+    }
+
+    //Add user to post
+    public void addAppUser(AppUser user) {
+        likedPost.add(user);
     }
 }

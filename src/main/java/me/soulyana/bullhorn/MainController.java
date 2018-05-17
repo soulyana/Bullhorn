@@ -36,6 +36,7 @@ public class MainController {
     public String showIndex(Model model) {
         model.addAttribute("aPost", new Post());
         model.addAttribute("postList", posts.findAll());
+        model.addAttribute("userList", users.findAll());
         return "feed";
     }
 
@@ -48,12 +49,21 @@ public class MainController {
     @PostMapping("/savepost")
     public String savePost(@Valid @ModelAttribute("aPost") Post post, BindingResult result, Authentication auth) {
         if(result.hasErrors()) {
-            return "index";
+            return "feed";
         }
         AppUser appUser = users.findByUsername(auth.getName());
         post.setAppUser(appUser);
         posts.save(post);
         return "redirect:/";
+    }
+
+    @GetMapping("/likepost/{id}")
+    public String likePost(@PathVariable("id") long id, Authentication auth) {
+        AppUser thisUser = users.findByUsername(auth.getName());
+        Post thisPost = posts.findById(id).get();
+        thisPost.addAppUser(thisUser);
+        posts.save(thisPost);
+        return "redirect:/feed";
     }
 
     @GetMapping("/adduser")
@@ -117,7 +127,7 @@ public class MainController {
     }
 
     @RequestMapping("/profile")
-    public String showProfilePage() {
+    public String showProfilePage(Model model) {
         return "profile";
     }
 
