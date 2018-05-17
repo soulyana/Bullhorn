@@ -9,7 +9,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.io.IOException;
 import java.util.Map;
@@ -36,7 +35,6 @@ public class MainController {
     public String showIndex(Model model) {
         model.addAttribute("aPost", new Post());
         model.addAttribute("postList", posts.findAll());
-        model.addAttribute("userList", users.findAll());
         return "feed";
     }
 
@@ -46,10 +44,10 @@ public class MainController {
         return "postform";
     }
 
-    @PostMapping("/savepost")
+    @PostMapping("/addpost")
     public String savePost(@Valid @ModelAttribute("aPost") Post post, BindingResult result, Authentication auth) {
         if(result.hasErrors()) {
-            return "feed";
+            return "postform";
         }
         AppUser appUser = users.findByUsername(auth.getName());
         post.setAppUser(appUser);
@@ -63,7 +61,7 @@ public class MainController {
         Post thisPost = posts.findById(id).get();
         thisPost.addAppUser(thisUser);
         posts.save(thisPost);
-        return "redirect:/feed";
+        return "redirect:/";
     }
 
     @GetMapping("/adduser")
@@ -131,9 +129,5 @@ public class MainController {
         return "profile";
     }
 
-    @RequestMapping("/feed")
-    public String showFeed() {
-        return "feed";
-    }
 
 }

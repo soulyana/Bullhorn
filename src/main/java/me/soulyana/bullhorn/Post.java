@@ -16,7 +16,7 @@ public class Post {
     @Lob
     private String message;
 
-    private Date postedAt;
+    private String postedAt;
 
     private ArrayList<AppUser> likedPost;
 
@@ -50,14 +50,6 @@ public class Post {
         this.message = message;
     }
 
-    public Date getPostedAt() {
-        return postedAt;
-    }
-
-    public void setPostedAt(Date postedAt) {
-        this.postedAt = postedAt;
-    }
-
     public AppUser getAppUser() {
         return appUser;
     }
@@ -86,5 +78,13 @@ public class Post {
     //Add user to post
     public void addAppUser(AppUser user) {
         likedPost.add(user);
+    }
+
+    public String getPostedAt() {
+        return postedAt;
+    }
+
+    public void setPostedAt(String postedAt) {
+        this.postedAt = postedAt;
     }
 }
