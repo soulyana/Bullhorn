@@ -55,7 +55,7 @@
 
 </head>
 <body class="twitter-profile-tweets">
-    <nav class="navbar navbar-relative navbar-ct-transparent" role="navigation-demo" id="twitter-navbar">
+    <nav th:fragment = "navbar" class="navbar navbar-relative navbar-ct-transparent" role="navigation-demo" id="twitter-navbar">
       <div class="container">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
@@ -75,13 +75,13 @@
 
             <ul class="nav navbar-nav">
                 <li>
-                    <a href="#" class="btn btn-info btn-simple">Home</a>
+                    <a th:href="@{/}" class="btn btn-info btn-simple">Home</a>
                 </li>
                 <li>
-                    <a href="#" target="_blank" class="btn btn-info btn-simple">Notifications</a>
+                    <a th:href="@{/register}" target="_blank" class="btn btn-info btn-simple">Register</a>
                 </li>
                 <li>
-                    <a href="#" target="_blank" class="btn btn-info btn-simple">Messages</a>
+                    <a th:href="@{/login}" target="_blank" class="btn btn-info btn-simple">Login</a>
                 </li>
 
             </ul>
@@ -99,7 +99,7 @@
 	            <li class="dropdown">
 	                <a href="#" class="profile-photo dropdown-toggle" data-toggle="dropdown">
 	                    <div class="profile-photo-small">
-	                        <img src="../assets/img/cristina.jpg" alt="Circle Image" class="img-circle img-responsive img-no-padding">
+	                        <img src= alt="../assets/img/cristina.jpg" class="img-circle img-responsive img-no-padding">
 	                    </div>
 	                </a>
 	                <ul class="dropdown-menu dropdown-menu-right dropdown-wide">
@@ -130,7 +130,7 @@
 	                </ul>
 	            </li>
 	            <li>
-	                <a href="#" class="btn btn-info btn-fill btn-icon"><i class="fa fa-pencil"></i> Tweet</a>
+	                <a th:href="@{/addpost}" class="btn btn-info btn-fill btn-icon"><i class="fa fa-pencil"></i>Post</a>
 	            </li>
 	        </ul>
         </div><!-- /.navbar-collapse -->
@@ -201,7 +201,7 @@
                                                          <i class="fa fa-retweet"></i> 2.1k
                                                     </a>
                                                     <a th:href="@{/likepost/{id}(id=${eachpost.id})}" class="btn btn-danger btn-simple">
-                                                         <i class="fa fa-heart"></i><span th:inline="text">[[${#lists.size(eachpost.likedPost)}]]</span>
+                                                    <i class="fa fa-heart"></i><span th:text="${#lists.size(eachpost.likedPost)}<1?'0': ${#lists.size(eachpost.likedPost)}"></span>
                                                     </a>
                                                     <div class="dropdown">
                                                       <button id="dLabel" type="button" class="btn btn-icon btn-simple btn-lg" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

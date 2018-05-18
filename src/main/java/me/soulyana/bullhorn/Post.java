@@ -38,6 +38,7 @@ public class Post {
     public Post(java.lang.String message, java.lang.String postedAt) {
         this.message = message;
         this.postedAt = postedAt;
+        this.likedPost = new ArrayList<>();
     }
 
     public long getId() {
