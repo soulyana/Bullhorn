@@ -14,7 +14,7 @@ public class Comment {
     @Lob
     private String comment;
 
-    private Date postedAt;
+    private String postedAt;
 
     @ManyToOne
     private Post post;
@@ -25,6 +25,11 @@ public class Comment {
 
     public Comment() {
 
+    }
+
+    public Comment(String comment, String postedAt) {
+        this.comment = comment;
+        this.postedAt = postedAt;
     }
 
     public long getId() {
@@ -43,13 +48,6 @@ public class Comment {
         this.comment = comment;
     }
 
-    public Date getPostedAt() {
-        return postedAt;
-    }
-
-    public void setPostedAt(Date postedAt) {
-        this.postedAt = postedAt;
-    }
 
     public Post getPost() {
         return post;
@@ -65,5 +63,13 @@ public class Comment {
 
     public void setAppUser(AppUser appUser) {
         this.appUser = appUser;
+    }
+
+    public String getPostedAt() {
+        return postedAt;
+    }
+
+    public void setPostedAt(String postedAt) {
+        this.postedAt = postedAt;
     }
 }

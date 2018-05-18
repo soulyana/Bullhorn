@@ -53,7 +53,14 @@ public class AppUser implements Serializable{
         this.posts = new HashSet<>();
         this.comments = new HashSet<>();
 
-       // encoder = new BCryptPasswordEncoder();
+        // encoder = new BCryptPasswordEncoder();
+    }
+
+    public AppUser(String username, String password, @NotNull String displayName, @NotNull String displayImg) {
+        this.username = username;
+        this.password = password;
+        this.displayName = displayName;
+        this.displayImg = displayImg;
     }
 
 
