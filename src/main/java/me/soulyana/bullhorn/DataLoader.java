@@ -50,13 +50,11 @@ public class DataLoader implements CommandLineRunner {
         posts.save(post2);
 
         AppUser appUser = new AppUser("jack","password","Jack", "https://inspired.disney.co.uk/wp-content/uploads/2017/04/disneyinspired-potc-quiz-v02-660x660-1.jpg");
-        appUser.setPassword(passwordEncoder.encode(appUser.getPassword()));
 //  appUser.setRoles(Arrays.asList(userRole));
         users.save(appUser);
 
 
         appUser = new AppUser("nicki","password", " Nicki", "https://i.ytimg.com/vi/4JipHEz53sU/maxresdefault.jpg");
-        appUser.setPassword(passwordEncoder.encode(appUser.getPassword()));
         users.save(appUser);
 //        post1.addUser(appUser1);
 //        comment1.addUser(appUser1);
@@ -65,7 +63,6 @@ public class DataLoader implements CommandLineRunner {
         comments.save(comment1);
 
         appUser= new AppUser("dave","password","dave","https://www.esquireme.com/sites/default/files/images/2018/01/29/dave-franco-getty-images-mono.jpg");
-        appUser.setPassword(passwordEncoder.encode(appUser.getPassword()));
         users.save(appUser);
         post2.setAppUser(appUser);
         posts.save(post2);
@@ -73,7 +70,6 @@ public class DataLoader implements CommandLineRunner {
 
 
         appUser = new AppUser("50cent","password","Curtis","http://data.junkee.com/wp-content/uploads/2017/07/50-cent-2.png");
-        appUser.setPassword(passwordEncoder.encode(appUser.getPassword()));
         users.save(appUser);
         posts.save(post2);
         comments.save(comment2);

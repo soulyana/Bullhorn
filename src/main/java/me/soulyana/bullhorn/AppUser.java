@@ -59,7 +59,7 @@ public class AppUser implements Serializable{
 
     public AppUser(String username, String password, @NotNull String displayName, @NotNull String displayImg) {
         this.username = username;
-        this.password = password;
+        setPassword(password);
         this.displayName = displayName;
         this.displayImg = displayImg;
     }

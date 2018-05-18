@@ -27,8 +27,9 @@ public class SSUDS implements UserDetailsService {
         AppUser thisUser = userRepo.findByUsername(s);
 
         if(thisUser==null) {
-            throw new UsernameNotFoundException("Your login attempt was not succesful, try again");
+            throw new UsernameNotFoundException("Your login attempt was not succesful, try again" + s.toString());
         }
+        System.out.println(thisUser.getUsername() + "has been found");
         return new User(thisUser.getUsername(), thisUser.getPassword(), userAuthorities(thisUser));
     }
 
