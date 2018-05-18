@@ -53,16 +53,9 @@ public class AppUser implements Serializable{
         this.posts = new HashSet<>();
         this.comments = new HashSet<>();
 
-        encoder = new BCryptPasswordEncoder();
+       // encoder = new BCryptPasswordEncoder();
     }
 
-    public PasswordEncoder getEncoder() {
-        return encoder;
-    }
-
-    public void setEncoder(PasswordEncoder encoder) {
-        this.encoder = encoder;
-    }
 
     public long getId() {
         return id;
@@ -86,6 +79,7 @@ public class AppUser implements Serializable{
 
     public void setPassword(String password) {
         //Encode the password to be saved
+        PasswordEncoder encoder = new BCryptPasswordEncoder() ;
         this.password = encoder.encode(password);
     }
 

@@ -18,9 +18,10 @@ public class Post {
 
     private String postedAt;
 
+    @Lob
     private ArrayList<AppUser> likedPost;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne
     @JoinColumn(name = "appUser_id")
     private AppUser appUser;
 
