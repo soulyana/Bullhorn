@@ -21,6 +21,10 @@ public class AppRole {
         this.users = new HashSet<>();
     }
 
+    public AppRole(String name) {
+        this.name = name;
+    }
+
     public long getId() {
         return id;
     }

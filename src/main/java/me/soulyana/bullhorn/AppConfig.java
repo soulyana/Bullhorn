@@ -37,7 +37,7 @@ public class AppConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(appUser).hasAuthority("APPUSER")
                 .anyRequest().authenticated()
                 .and()
-                .formLogin()
+                .formLogin().loginPage("/login").permitAll()
                 .and()
                 .logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"));
         //For H2
